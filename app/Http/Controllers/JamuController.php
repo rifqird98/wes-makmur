@@ -14,7 +14,10 @@ class JamuController extends Controller
 
     public function store(Request $request)
     {
-        $cetak = new saran($request->keluhan, $request->tahunlahir);
+
+        $kluh = explode(',',$request->keluhan);
+        $kl = implode(',',$kluh);
+        $cetak = new saran($kl, $request->tahunlahir);
         $data = [
             'jamu' => $cetak->keluhan(),
             'khasiat' => 'meningkatkan imun tubuh',
@@ -37,13 +40,13 @@ class jamu
 
     public function keluhan()
     {
-        if ($this->keluhan_ == 'keseleo' && "kurang nafsu makan") {
+        if ($this->keluhan_ == 'keseleo, kurang nafsu makan') {
             return 'beras kencur';
         } elseif ($this->keluhan_ == 'pegel-pegel') {
             return 'kunyit asam';
-        } elseif ($this->keluhan_ == 'darah tinggi' && 'gula darah') {
+        } elseif ($this->keluhan_ == 'darah tinggi, gula darah') {
             return 'brotowali';
-        } elseif ($this->keluhan_ == 'kram perut' && 'masuk angin') {
+        } elseif ($this->keluhan_ == 'kram perut, masuk angin') {
             return 'temu lawak';
         }else{
             return 'kata yang dimasukkan tidak tepat';
@@ -71,7 +74,7 @@ class saran extends jamu
                     $konsum = 'Dinkonsumi 2x';
                 }
 
-        if ($this->$jamu == 'beras kencur' && $keluh == "keseleo") {
+        if ($jamu == 'beras kencur' && $keluh == "keseleo") {
             return 'dioleskan';
         
         }else {
